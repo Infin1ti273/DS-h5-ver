@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type">
+    <!--适应边框宽度，不可缩放-->
+    <meta name="viewport" content="width=device-width, user-scalable=0">
+    <title>Drone Sharing Platform</title>
+
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="themes/customstyle.min.css"/>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+
+<body>
+
+<!--主页-->
+<div data-role="page" id="main-page">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a href="#sidebar" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/bars-white.png" alt="bar" id="side_icon">
+        </a>
+        <h1>ASS♂WE♂CAN</h1>
+    </header>
+
+    <!--首页中部主体-->
+    <div data-role="content" class="main_content">
+        <a href="#config-page" id="config_button">测试：配置（位置信息）</a>
+        <a id="first_pic" href="#profile-page">
+            <img src="" alt="" >测试：账户信息
+        </a>
+        <a id="second_pic" href="#signup-page">
+            <img src="" alt="">测试：注册第二步
+        </a>
+        <a id="third_pic">
+            <img src="" alt="" >测试：选择交易物品
+        </a>
+        <a id="forth_pic">
+            <img src="" alt="" >测试：确认交易
+        </a>
+    </div>
+
+    <!--侧边菜单-->
+    <aside data-role="panel" id="sidebar">
+        <!--用户按钮-->
+        <div class="side_comp" id="side_comp1">
+            <a id="usr_icon_link" href="#login-page">
+                <p>This will be user's name</p>
+            </a>
+        </div>
+        <!--按钮栏-->
+        <div class="side_comp" id="side_comp2">
+            <ul data-role="listview">
+                <li>
+                    <a href="" id="Message">Message</a>
+                </li>
+                <li>
+                    <a href="" id="History">History</a>
+                </li>
+                <li>
+                    <a href="" id="Wallet">Wallet</a>
+                </li>
+                <li>
+                    <a href="" id="Settings">Settings</a>
+                </li>
+            </ul>
+        </div>
+
+    </aside>
+
+    <!--页脚-->
+    <footer data-role="footer">
+        <h1>hello</h1>
+    </footer>
+</div>
+
+<!--设置页(起点和终点)-->
+<div data-role="page" id="config-page">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
+        </a>
+        <h1>Configurations</h1>
+    </header>
+
+    <!--主体-->
+    <div data-role="content">
+        <form action="http://localhost:8000/map" method="post">
+            <label>
+                起点：<a href="#map-page"><input type="text" value="未设置" name="start" readonly></a>
+            </label>
+            <label>
+                终点: <a href="#map-page"><input type="text" value="未设置" name="terminal" readonly></a>
+            </label>
+            <input type="submit" value="设置完成">
+        </form>
+    </div>
+</div>
+
+<!--登录页-->
+<div data-role="page" id="login-page">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
+        </a>
+        <h1>Login</h1>
+    </header>
+
+    <!--主体-->
+    <div data-role="content">
+        <form action="#" method="post" id="login_form">
+            <h3>
+                <label>
+                    账号(phone)：<input type="text" name="login_username">
+                </label>
+            </h3>
+            <h3>
+                <label>
+                    密码：<input type="password" name="login_password">
+                </label>
+            </h3>
+            <input type="button" value="登录" name="login_btn" id="login_button">
+        </form>
+
+        <p>
+            没有账号？ <a href="#signup-page-phone">注册一个！</a><br>
+        </p>
+        <p>
+            忘了密码？ <a href="#forget-page-phone">点此找回！</a>
+        </p>
+    </div>
+</div>
+
+<!--忘记密码(手机找回)-->
+<div data-role="page" id="forget-page-phone">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
+        </a>
+        <h1>修改信息</h1>
+    </header>
+    <div data-role="content">
+        <form content="/alt_msg" id="forget_psw_form">
+            <label>
+                手机号： <input name="forget_phone" class="auth_phone">
+            </label>
+            <a href="" class="ui-btn send_auth_button">发送验证码(暂不可用)</a>
+            <label>
+                验证码： <input name="forget_key">
+            </label>
+            <input id="forget_psw_button" type="button" value="找回密码">
+        </form>
+    </div>
+</div>
+
+<!--注册1:手机验证-->
+<div data-role="page" id="signup-page-phone">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
+        </a>
+        <h1>注册账户！</h1>
+    </header>
+    <div data-role="content">
+        <form action="#" id="signup_phone_form" name="alter_form">
+            <label>
+                手机号： <input name="alt_phone" class="phone">
+            </label>
+            <a href="" class="ui-btn send_auth_button">发送验证码(暂不可用)</a>
+            <label>
+                验证码： <input name="key">
+            </label>
+            <input id="signup_phone_button" type="button" value="注册！">
+        </form>
+    </div>
+</div>
+
+<!--注册2:其他信息-->
+<div data-role="page" id="signup-page">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
+        </a>
+        <h1>完善你的信息！</h1>
+    </header>
+
+    <!--主体-->
+    <div data-role="content">
+        <form action="" method="post" id="signup_others_form">
+            <h3 id="signup2_blank">完成其他信息</h3>
+            <h3>
+                <label>
+                    用户名：<input type="text" name="signup_username">
+                </label>
+            </h3>
+            <h3>
+                <label>
+                    密码：<input type="password" name="signup_psw">
+                </label>
+            </h3>
+            <h3>
+                <label>
+                    确认密码：<input type="password" name="signup_psw_confirm">
+                </label>
+            </h3>
+            <input type="submit" value="注册" name="signup_btn" id="signup_others_button">
+        </form>
+    </div>
+</div>
+
+<!--账户信息页-->
+<div data-role="page" id="profile-page">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
+        </a>
+        <h1>用户信息</h1>
+    </header>
+    <!--主体-->
+    <div data-role="content">
+        <a>
+            <div data-role="content" class="ui-body-a">
+                账户：<div></div>
+            </div>
+        </a>
+        <div data-role="content">
+            <ul data-role="listview">
+                <li>用户名：<div></div></li>
+                <li>手机号：<div></div></li>
+                <li>Email：<div></div></li>
+            </ul>
+        </div>
+    </div>
+    <a href="#alter-page-normal" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改信息</a>
+    <a href="#alter-page-phone" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改手机号</a>
+    <a href="#alter-page-psw" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改密码</a>
+</div>
+
+<!--账户信息更改(普通)-->
+<div data-role="page" id="alter-page-normal">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
+        </a>
+        <h1>修改信息</h1>
+    </header>
+    <div data-role="content">
+        <form action="#" method="post" id="alter_normal_form">
+            <label>
+                用户名： <input type="text" name="username">
+            </label>
+            <label>
+                Email： <input type="email" name="email">
+            </label>
+            <input id="alter_normal_button" type="button" value="确认修改" >
+        </form>
+    </div>
+</div>
+
+<!--账户信息更改(手机)-->
+<div data-role="page" id="alter-page-phone">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
+        </a>
+        <h1>修改信息</h1>
+    </header>
+    <div data-role="content">
+        <form action="#" method="post" id="alter_phone_form">
+            <label>
+                手机号： <input type="number" maxlength="11" name="phone">
+            </label>
+            <a href="" class="ui-btn send_auth_button">发送验证码(暂不可用)</a>
+            <label>
+                验证码： <input id="alt_key" name="key">
+            </label>
+            <input id="alter_phone_button" type="button" value="确认修改" >
+        </form>
+    </div>
+</div>
+
+<!--修改密码-->
+<div data-role="page" id="alter-page-psw">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
+        </a>
+        <h1>修改信息</h1>
+    </header>
+    <div data-role="content">
+        <form action="#" id="alter_psw_form">
+            <label>
+                新密码： <input type="password" name="first_psw">
+            </label>
+            <label>
+                确认密码： <input type="password" name="second_psw">
+            </label>
+            <input id="alter_psw_button" type="submit" value="确认修改">
+        </form>
+
+    </div>
+</div>
+
+<!--地图页-->
+<div data-role="page" id="map-page">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
+        </a>
+        <h1>设置位置</h1>
+    </header>
+    <div data-role="content">
+
+    </div>
+</div>
+
+<!--布局相关Script-->
+<script src="scripts/layout.js"></script>
+<script>
+    //与服务器端通信的根目录
+    const host_url="https://localhost:8000/";
+
+    //用户请求一次手机验证码后触发20s倒计时，期间不能再次请求验证码（此功能暂时废弃）
+    let i=20;
+    function arr(str){
+        setTimeout(function () {
+            $(str).html("Please Wait...("+ i +")");
+            if(i>0)
+                arr(str);
+            else
+                $(str).html("发送验证码");
+            i--;
+        },1000);
+    }
+    $(".send_auth_button").click(function(){i=20}).click(function(){arr(".send_auth_button")});
+    //$("#send_auth_button").click(function(){i=20}).click(function(){arr("#send_auth_button")});
+    //$("#send_signup_auth_button").click(function(){i=20}).click(function () {arr("#send_signup_auth_button")});
+
+
+    //配置ajax的数组，[按钮id,url末端,表单id]
+    const submit_arr=[
+        ["#login_button","login","#login_form"],
+        ["#signup_phone_button","signup1","#signup_phone_form"],
+    ];
+    //ajax的表单发送方法　传入参数:url 表单id
+    //具体的返回结果会根据url交给后台判断
+    function auth(url, form_id){
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: host_url + url,
+            data: $(form_id).serialize(),
+            success: function (result) {
+                console.log(result);
+                alert("Result " + result)
+            },
+            error: function () {
+                alert("Failed!")
+            },
+        });
+    }
+    //为所有需要进行表单发送的按钮添加ajax方法
+    for(let i=0;i<submit_arr.length;i++){
+        $(submit_arr[i][0]).click(function () {
+            auth(submit_arr[i][1],submit_arr[i][2]);
+        })
+    }
+
+</script>
+</body>
+</html>
