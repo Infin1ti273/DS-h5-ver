@@ -116,12 +116,12 @@
         <form action="#" method="post" id="login_form">
             <h3>
                 <label>
-                    账号(phone)：<input type="text" name="login_username">
+                    账号(phone)：<input type="number" maxlength="11" name="phone">
                 </label>
             </h3>
             <h3>
                 <label>
-                    密码：<input type="password" name="login_password">
+                    密码：<input type="password" name="password">
                 </label>
             </h3>
             <input type="button" value="登录" name="login_btn" id="login_button">
@@ -133,29 +133,6 @@
         <p>
             忘了密码？ <a href="#forget-page-phone">点此找回！</a>
         </p>
-    </div>
-</div>
-
-<!--忘记密码(手机找回)-->
-<div data-role="page" id="forget-page-phone">
-    <!--上方导航栏-->
-    <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
-        <h1>修改信息</h1>
-    </header>
-    <div data-role="content">
-        <form content="/alt_msg" id="forget_psw_form">
-            <label>
-                手机号： <input name="forget_phone" class="auth_phone">
-            </label>
-            <a href="" class="ui-btn send_auth_button">发送验证码(暂不可用)</a>
-            <label>
-                验证码： <input name="forget_key">
-            </label>
-            <input id="forget_psw_button" type="button" value="找回密码">
-        </form>
     </div>
 </div>
 
@@ -171,7 +148,7 @@
     <div data-role="content">
         <form action="#" id="signup_phone_form" name="alter_form">
             <label>
-                手机号： <input name="alt_phone" class="phone">
+                手机号： <input name="alt_phone" maxlength="11" class="phone">
             </label>
             <a href="" class="ui-btn send_auth_button">发送验证码(暂不可用)</a>
             <label>
@@ -194,24 +171,47 @@
 
     <!--主体-->
     <div data-role="content">
-        <form action="" method="post" id="signup_others_form">
+        <form action="#" method="post" id="signup_others_form">
             <h3 id="signup2_blank">完成其他信息</h3>
             <h3>
                 <label>
-                    用户名：<input type="text" name="signup_username">
+                    用户名：<input type="text" name="username">
                 </label>
             </h3>
             <h3>
                 <label>
-                    密码：<input type="password" name="signup_psw">
+                    密码：<input type="password" name="psw">
                 </label>
             </h3>
             <h3>
                 <label>
-                    确认密码：<input type="password" name="signup_psw_confirm">
+                    确认密码：<input type="password" name="psw2">
                 </label>
             </h3>
-            <input type="submit" value="注册" name="signup_btn" id="signup_others_button">
+            <input type="button" value="注册" name="signup_btn" id="signup_others_button">
+        </form>
+    </div>
+</div>
+
+<!--忘记密码(手机找回)-->
+<div data-role="page" id="forget-page-phone">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
+        </a>
+        <h1>修改信息</h1>
+    </header>
+    <div data-role="content">
+        <form content="/alt_msg" id="forget_psw_form">
+            <label>
+                手机号： <input name="phone" type="number" maxlength="11">
+            </label>
+            <a href="" class="ui-btn send_auth_button">发送验证码(暂不可用)</a>
+            <label>
+                验证码： <input name="key" type="password">
+            </label>
+            <input id="forget_psw_button" type="button" value="找回密码">
         </form>
     </div>
 </div>
@@ -302,12 +302,12 @@
     <div data-role="content">
         <form action="#" id="alter_psw_form">
             <label>
-                新密码： <input type="password" name="first_psw">
+                新密码： <input type="password" name="psw">
             </label>
             <label>
-                确认密码： <input type="password" name="second_psw">
+                确认密码： <input type="password" name="psw2">
             </label>
-            <input id="alter_psw_button" type="submit" value="确认修改">
+            <input id="alter_psw_button" type="button" value="确认修改">
         </form>
 
     </div>
@@ -331,7 +331,7 @@
 <script src="scripts/layout.js"></script>
 <script>
     //与服务器端通信的根目录
-    const host_url="https://localhost:8000/";
+    const host_url="http://localhost:8000/";
 
     //用户请求一次手机验证码后触发20s倒计时，期间不能再次请求验证码（此功能暂时废弃）
     let i=20;
@@ -352,22 +352,79 @@
 
     //配置ajax的数组，[按钮id,url末端,表单id]
     const submit_arr=[
-        ["#login_button","login","#login_form"],
-        ["#signup_phone_button","signup1","#signup_phone_form"],
+        ["#login_button","login","#login_form"],//登录
+        ["#signup_phone_button","signup1","#signup_phone_form"],//注册１
+        ["#signup_others_button","signup2","#signup_others_form"],//注册２
+        ["#forget_psw_button","forget_psw","#forget_psw_form"],//忘密码
+        ["#alter_normal_button","alter_normal","#alter_normal_form"],//改普通信息
+        ["#alter_phone_button","alter_phone","#alter_phone_form"],//改手机
+        ["#alter_psw_button","alter_psw","#alter_psw_form"]//改密码
     ];
     //ajax的表单发送方法　传入参数:url 表单id
+    //基于ajax方法的不同对象添加额外的操作（弹窗以外）
+    function extend_act(num, result) {
+        switch (num) {
+            //登录
+            case 0:
+                if (result['return']==="ok"){
+                    alert("登录成功！");
+                    //（加上登录完成的一系列操作，为界面添加信息等）
+                    window.location.href="#main-page"
+                }
+                else {
+                    alert(result['return']);
+                    $("#login_button").val("");
+                }
+                break;
+            //注册１
+            case 1:
+                if (result['return']==="ok"){
+                    alert("注册手机成功！");
+                    //修改下一个页的隐藏信息
+                    window.location.href="#signup-page";
+                }
+                else {
+                    alert(result['return']);
+                }
+                break;
+            //注册２
+            case 2:
+                if (result==="ok"){
+                    alert("你成功注册了账户！");
+                    window.location.href="#"
+                }
+                else {
+                    alert(result);
+                }
+                break;
+            //忘密码
+            case 3:
+                break;
+            //改普通信息
+            case 4:
+                break;
+            //改手机
+            case 5:
+                break;
+            //改密码
+            case 6:
+                break;
+        }
+    }
     //具体的返回结果会根据url交给后台判断
-    function auth(url, form_id){
+    function auth(url, form_id, num){
         $.ajax({
             type: "POST",
-            dataType: "json",
             url: host_url + url,
             data: $(form_id).serialize(),
+            tradition: true,
+            dataType: "json",
+            async: false, //同步操作。即：用户必须要等待服务器反馈之后才能操作
             success: function (result) {
-                console.log(result);
-                alert("Result " + result)
+                extend_act(num, result)
             },
             error: function () {
+                console.log(error);
                 alert("Failed!")
             },
         });
@@ -375,7 +432,7 @@
     //为所有需要进行表单发送的按钮添加ajax方法
     for(let i=0;i<submit_arr.length;i++){
         $(submit_arr[i][0]).click(function () {
-            auth(submit_arr[i][1],submit_arr[i][2]);
+            auth(submit_arr[i][1],submit_arr[i][2],i);
         })
     }
 
