@@ -6,7 +6,6 @@
     <!--适应边框宽度，不可缩放-->
     <meta name="viewport" content="width=device-width, user-scalable=0">
     <title>Drone Sharing Platform</title>
-
     <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="themes/customstyle.min.css"/>
@@ -48,7 +47,7 @@
         <!--用户按钮-->
         <div class="side_comp" id="side_comp1">
             <a id="usr_icon_link" href="#login-page">
-                <p>This will be user's name</p>
+                <p id="usr_icon_text">Welcome! Please tap here to login</p>
             </a>
         </div>
         <!--按钮栏-->
@@ -180,12 +179,12 @@
             </h3>
             <h3>
                 <label>
-                    密码：<input type="password" name="psw">
+                    密码：<input type="password" name="psw" id="signup_psw_input">
                 </label>
             </h3>
             <h3>
                 <label>
-                    确认密码：<input type="password" name="psw2">
+                    确认密码：<input type="password" name="psw2" id="signup_psw2_input">
                 </label>
             </h3>
             <input type="button" value="注册" name="signup_btn" id="signup_others_button">
@@ -234,15 +233,16 @@
         </a>
         <div data-role="content">
             <ul data-role="listview">
-                <li>用户名：<div></div></li>
-                <li>手机号：<div></div></li>
-                <li>Email：<div></div></li>
+                <li>用户名：<div id="prof_user"></div></li>
+                <li>手机号：<div id="prof_phone"></div></li>
+                <li>Email：<div id="prof_email"></div></li>
             </ul>
         </div>
     </div>
     <a href="#alter-page-normal" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改信息</a>
     <a href="#alter-page-phone" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改手机号</a>
     <a href="#alter-page-psw" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改密码</a>
+    <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">解除登录</a>
 </div>
 
 <!--账户信息更改(普通)-->
@@ -346,10 +346,6 @@
         },1000);
     }
     $(".send_auth_button").click(function(){i=20}).click(function(){arr(".send_auth_button")});
-    //$("#send_auth_button").click(function(){i=20}).click(function(){arr("#send_auth_button")});
-    //$("#send_signup_auth_button").click(function(){i=20}).click(function () {arr("#send_signup_auth_button")});
-
-
 
 </script>
 </body>
