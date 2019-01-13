@@ -5,6 +5,7 @@ const host_url="http://localhost:8000/";
 
 //进入信息页(服务端返回目前登录用户所对应信息)
 function into_profile() {
+    //向服务器请求一次目前登录的用户信息
     $.ajax({
         type: "POST",
         url: host_url + "profile",
@@ -67,6 +68,7 @@ function extend_act(num, result) {
                 //１，向服务器提交账号相关的剩余信息
                 //２，将登录信息暂存在session里
                 //３，修改进入登录页按钮的链接
+                $("#usr_icon_link").attr("href","#profile-page");
                 window.location.href="#main-page";
                 break;
             //忘密码
@@ -86,6 +88,7 @@ function extend_act(num, result) {
             case 5:
                 alert("手机修改成功！");
                 //触发一次进入用户信息页的脚本
+                into_profile();
                 window.location.href="#profile-page";
                 break;
             //改密码
@@ -115,18 +118,15 @@ function auth(url, form_id, num){
         tradition: true,
         dataType: "json",
         async: false, //同步操作。即：用户必须要等待服务器反馈之后才能操作
-        success: function (result) {
+        success: (result) => {
             extend_act(num, result)
         },
-        error: function () {
-            console.log(error);
+        error: () => {
             alert("连接错误！")
         },
     });
 }
 //为所有需要进行表单发送的按钮添加ajax方法
 for(let i=0;i<submit_arr.length;i++){
-    $(submit_arr[i][0]).click(function () {
-        auth(submit_arr[i][1],submit_arr[i][2],i);
-    })
+    $(submit_arr[i][0]).click( () => {auth(submit_arr[i][1],submit_arr[i][2],i);})
 }

@@ -330,7 +330,10 @@
 <script src="scripts/layout.js"></script>
 <!--业务逻辑相关Script-->
 <script src="scripts/service.js"></script>
+<!--调用geth相关Script-->
+<!--script src="scripts/geth.js"></script-->
 <script>
+    let currentUser = undefined;
 
     //用户请求一次手机验证码后触发20s倒计时，期间不能再次请求验证码（此功能暂时废弃）
     let i=20;
