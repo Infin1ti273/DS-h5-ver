@@ -126,7 +126,7 @@
         </form>
 
         <p>
-            没有账号？ <a href="#signup-page-phone">注册一个！</a><br>
+            没有账号？ <a href="#signup-page">注册一个！</a><br>
         </p>
         <p>
             忘了密码？ <a href="#forget-page-phone">点此找回！</a>
@@ -134,9 +134,9 @@
     </div>
 </div>
 
-<!--注册1:手机验证-->
-<div data-role="page" id="signup-page-phone">
-    <!--上方导航栏-->
+<!--注册1:手机验证(作废)-->
+<!--div data-role="page" id="signup-page-phone">
+    <上方导航栏>
     <header data-role="header">
         <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
             <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
@@ -155,9 +155,9 @@
             <input id="signup_phone_button" type="button" value="注册！">
         </form>
     </div>
-</div>
+</div-->
 
-<!--注册2:其他信息-->
+<!--注册:其他信息-->
 <div data-role="page" id="signup-page">
     <!--上方导航栏-->
     <header data-role="header">
@@ -170,28 +170,24 @@
     <!--主体-->
     <div data-role="content">
         <form action="#" method="post" id="signup_others_form">
-            <h3 id="signup2_blank">完成其他信息</h3>
-            <h3>
-                <label>
-                    用户名：<input type="text" name="username">
-                </label>
-            </h3>
-            <h3>
-                <label>
-                    密码：<input type="password" name="psw" id="signup_psw_input">
-                </label>
-            </h3>
-            <h3>
-                <label>
-                    确认密码：<input type="password" name="psw2" id="signup_psw2_input">
-                </label>
-            </h3>
+            <label>
+                手机号： <input name="alt_phone" maxlength="11" class="phone">
+            </label>
+            <label>
+                用户名：<input type="text" name="name">
+            </label>
+            <label>
+                密码：<input type="password" name="psw" id="signup_psw_input">
+            </label>
+            <label>
+                确认密码：<input type="password" name="psw2" id="signup_psw2_input">
+            </label>
             <input type="button" value="注册" name="signup_btn" id="signup_others_button">
         </form>
     </div>
 </div>
 
-<!--忘记密码(手机找回)-->
+<!--忘记密码(手机找回)(暂时作废)-->
 <div data-role="page" id="forget-page-phone">
     <!--上方导航栏-->
     <header data-role="header">
@@ -256,7 +252,7 @@
     <div data-role="content">
         <form action="#" method="post" id="alter_normal_form">
             <label>
-                用户名： <input type="text" name="username">
+                用户名： <input type="text" name="name">
             </label>
             <label>
                 Email： <input type="email" name="email">
@@ -326,13 +322,8 @@
     </div>
 </div>
 
-<!--布局相关Script-->
-<script src="scripts/layout.js"></script>
-<!--业务逻辑相关Script-->
-<script src="scripts/service.js"></script>
-<!--调用geth相关Script-->
-<!--script src="scripts/geth.js"></script-->
 <script>
+    //标识目前所登录的账户
     let currentUser = undefined;
 
     //用户请求一次手机验证码后触发20s倒计时，期间不能再次请求验证码（此功能暂时废弃）
@@ -350,5 +341,15 @@
     $(".send_auth_button").click(function(){i=20}).click(function(){arr(".send_auth_button")});
 
 </script>
+<!--布局相关Script-->
+<script src="scripts/layout.js"></script>
+<!--业务逻辑相关Script-->
+<script src="scripts/service.js"></script>
+<!--调用登录和解除登录相关Script-->
+<script src="scripts/init.js"></script>
+<!--调用geth相关Script-->
+<script src="scripts/geth.js"></script>
+<!--仅供测试使用的Script-->
+<script src="scripts/test.js"></script>
 </body>
 </html>

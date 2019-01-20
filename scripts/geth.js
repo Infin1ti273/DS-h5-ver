@@ -2,8 +2,6 @@
 
 const Web3 = require('web3');
 let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-function ver(){
-    console.log(web3.version);
-}
-//test
+const ver = () => {console.log(web3.version);};
+
 ver();

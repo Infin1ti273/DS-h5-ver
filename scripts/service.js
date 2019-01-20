@@ -1,41 +1,12 @@
-//业务相关脚本(ajax的提交和反馈)
+//业务相关脚本(ajax的提交和反馈) 登录　和　解除登录
 
 //与服务器端通信的根目录
 const host_url="http://localhost:8000/";
 
-//进入信息页(服务端返回目前登录用户所对应信息)
-function into_profile() {
-    //向服务器请求一次目前登录的用户信息
-    $.ajax({
-        type: "POST",
-        url: host_url + "profile",
-        data: {"request":"enter"},
-        tradition: true,
-        dataType: "json",
-        async: false, //同步操作
-        success: function (result) {
-            $("#prof_user").html(result['user']);
-            $("#prof_phone").html(result['phone']);
-            $("#prof_email").html(result['email']);
-        },
-        error: function () {
-            console.log(error);
-            alert("连接错误！")
-        },
-    });
-}
-//修改侧边菜单图标的内容和链接
-function login_ex(usr_name) {
-    $("#usr_icon_link").attr("href","#profile-page")
-        .click(function () {
-            into_profile();
-        });
-    $("#usr_icon_text").val("Welcome! " + usr_name);
-}
 //配置ajax的数组，[按钮id,url末端,表单id]
 const submit_arr=[
     ["#login_button","login","#login_form"],//登录
-    ["#signup_phone_button","signup1","#signup_phone_form"],//注册１
+    //["#signup_phone_button","signup1","#signup_phone_form"],//注册１
     ["#signup_others_button","signup2","#signup_others_form"],//注册２
     ["#forget_psw_button","forget_psw","#forget_psw_form"],//忘密码
     ["#alter_normal_button","alter_normal","#alter_normal_form"],//改普通信息
@@ -52,47 +23,46 @@ function extend_act(num, result) {
             case 0:
                 alert("登录成功！");
                 //修改侧边菜单图标的内容和链接
-                login_ex(result['username']);
+                login_action(result);
                 window.location.href="#main-page";
                 break;
-            //注册１
+            /*注册１(此功能暂时作废)
             case 1:
                 alert("注册手机成功！");
                 //修改下一个页的隐藏信息
                 window.location.href="#signup-page";
-                break;
+                break;*/
             //注册２
-            case 2:
+            case 1:
                 alert("你成功注册了账户！");
-                //（这里最为复杂）
                 //１，向服务器提交账号相关的剩余信息
-                //２，将登录信息暂存在session里
-                //３，修改进入登录页按钮的链接
-                $("#usr_icon_link").attr("href","#profile-page");
+                //２，服务端将登录信息暂存在session里
+                //３，服务端触发以当前注册账户登录
+                login_action(result);
                 window.location.href="#main-page";
                 break;
             //忘密码
-            case 3:
+            case 2:
                 alert("密码找回成功！您的密码是： " + result['psw']);
                 //没有额外操作了
                 window.location.href="#login-page";
                 break;
             //改普通信息
-            case 4:
+            case 3:
                 alert("信息修改成功！");
-                //触发一次进入用户信息页的脚本
-                into_profile();
+                //触发用户信息修正
+                user_msg_alt(result['name'], result['phone'], result['email']);
                 window.location.href="#profile-page";
                 break;
             //改手机
-            case 5:
+            case 4:
                 alert("手机修改成功！");
-                //触发一次进入用户信息页的脚本
-                into_profile();
+                //触发用户信息修正
+                user_msg_alt(result['name'], result['phone'], result['email']);
                 window.location.href="#profile-page";
                 break;
             //改密码
-            case 6:
+            case 5:
                 alert("密码修改成功");
                 //没有额外操作了
                 window.location.href="#profile-page";
@@ -103,7 +73,7 @@ function extend_act(num, result) {
     //服务器处理错误，但成功返回数据
     else {
         alert(result['return']);
-        //清空对应输入框的内容
+        //清空所有对应输入框的内容
         $("#login_psw_input").val("");
         $("#signup_psw_input").val("");
         $("#signup_psw2_input").val("");
@@ -130,3 +100,40 @@ function auth(url, form_id, num){
 for(let i=0;i<submit_arr.length;i++){
     $(submit_arr[i][0]).click( () => {auth(submit_arr[i][1],submit_arr[i][2],i);})
 }
+
+//登录完成后客户端的操作
+function login_action(result) {
+    //更新用户信息页数据
+    user_msg_alt(result['name'], result['phone'], result['email']);
+    //修改侧边菜单图标和数据
+    $("#usr_icon_link").attr("href","#profile-page");
+    $("#usr_icon_text").val("Welcome! " + result['user']);
+    currentUser = result['name'];
+
+}
+
+//解除登录，及成功之后的客户端操作
+function cancel_login_action() {
+    //向服务器请求解除登录,不要求返回数据
+    $.ajax({
+        type: "POST",
+        url: host_url + "profile",
+        data: {"request":"user"},
+        tradition: true,
+        async: true,
+        success: function () {
+            user_msg_alt("","","");
+            //修改侧边菜单图标和数据
+            $("#usr_icon_link").attr("href","#login-page");
+            $("#usr_icon_text").val("Welcome! Please tap here to login");
+        },
+    });
+}
+
+//更新/修正用户信息页的操作
+function user_msg_alt(name, phone, email) {
+    $("#prof_user").html(name);
+    $("#prof_phone").html(phone);
+    $("#prof_email").html(email);
+}
+
