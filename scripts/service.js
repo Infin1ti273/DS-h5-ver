@@ -15,8 +15,9 @@ const submit_arr=[
 ];
 //ajax的表单发送方法　传入参数:url 表单id
 //基于ajax方法的不同对象添加额外的操作（弹窗以外）
-function extend_act(num, result) {
+function extend_act(num, result_json) {
     //收到了来自服务器的正确回复
+    let result = JSON.parse(result_json);
     if (result['return']==="ok"){
         switch (num) {
             //登录
@@ -26,13 +27,6 @@ function extend_act(num, result) {
                 login_action(result);
                 window.location.href="#main-page";
                 break;
-            /*注册１(此功能暂时作废)
-            case 1:
-                alert("注册手机成功！");
-                //修改下一个页的隐藏信息
-                window.location.href="#signup-page";
-                break;*/
-            //注册２
             case 1:
                 alert("你成功注册了账户！");
                 //１，向服务器提交账号相关的剩余信息
@@ -51,14 +45,14 @@ function extend_act(num, result) {
             case 3:
                 alert("信息修改成功！");
                 //触发用户信息修正
-                user_msg_alt(result['name'], result['phone'], result['email']);
+                user_msg_alt(result['username'], result['phone'], result['email']);
                 window.location.href="#profile-page";
                 break;
             //改手机
             case 4:
                 alert("手机修改成功！");
                 //触发用户信息修正
-                user_msg_alt(result['name'], result['phone'], result['email']);
+                user_msg_alt(result['username'], result['phone'], result['email']);
                 window.location.href="#profile-page";
                 break;
             //改密码
@@ -104,12 +98,12 @@ for(let i=0;i<submit_arr.length;i++){
 //登录完成后客户端的操作
 function login_action(result) {
     //更新用户信息页数据
-    user_msg_alt(result['name'], result['phone'], result['email']);
+    user_msg_alt(result['username'], result['phone'], result['email']);
     //修改侧边菜单图标和数据
     $("#usr_icon_link").attr("href","#profile-page");
     $("#usr_icon_text").val("Welcome! " + result['user']);
-    currentUser = result['name'];
-
+    //前端登记已登录的用户名
+    currentUser = result['phone'];
 }
 
 //解除登录，及成功之后的客户端操作
@@ -117,7 +111,7 @@ function cancel_login_action() {
     //向服务器请求解除登录,不要求返回数据
     $.ajax({
         type: "POST",
-        url: host_url + "profile",
+        url: host_url + "exit",
         data: {"request":"user"},
         tradition: true,
         async: true,
@@ -130,7 +124,7 @@ function cancel_login_action() {
     });
 }
 
-//更新/修正用户信息页的操作
+//更新修正用户信息页的操作
 function user_msg_alt(name, phone, email) {
     $("#prof_user").html(name);
     $("#prof_phone").html(phone);

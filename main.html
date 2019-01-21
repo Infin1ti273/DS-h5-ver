@@ -171,7 +171,7 @@
     <div data-role="content">
         <form action="#" method="post" id="signup_others_form">
             <label>
-                手机号： <input name="alt_phone" maxlength="11" class="phone">
+                账号（phone）： <input type="number" name="phone" maxlength="11">
             </label>
             <label>
                 用户名：<input type="text" name="name">
@@ -187,7 +187,7 @@
     </div>
 </div>
 
-<!--忘记密码(手机找回)(暂时作废)-->
+<!--忘记密码(手机找回)-->
 <div data-role="page" id="forget-page-phone">
     <!--上方导航栏-->
     <header data-role="header">
@@ -234,10 +234,13 @@
             </ul>
         </div>
     </div>
-    <a href="#alter-page-normal" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改信息</a>
-    <a href="#alter-page-phone" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改手机号</a>
-    <a href="#alter-page-psw" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改密码</a>
-    <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">解除登录</a>
+    <!--alter-page-normal-->
+    <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改信息</a>
+    <!--alter-page-phone-->
+    <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改手机号</a>
+    <!--alter-page-psw-->
+    <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改密码</a>
+    <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;" id="release">解除登录</a>
 </div>
 
 <!--账户信息更改(普通)-->
@@ -345,7 +348,7 @@
 <script src="scripts/layout.js"></script>
 <!--业务逻辑相关Script-->
 <script src="scripts/service.js"></script>
-<!--调用登录和解除登录相关Script-->
+<!--应用初始化相关Script-->
 <script src="scripts/init.js"></script>
 <!--调用geth相关Script-->
 <script src="scripts/geth.js"></script>

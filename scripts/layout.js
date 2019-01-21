@@ -10,4 +10,10 @@ $("#side_comp1 a").addClass("ui-btn");
 $(".main_content a").addClass("ui-btn");
 
 //设定导航栏图标的缩放
-$(".navi_icon, #side_icon").css({"width":"17px"},{"height":"17px"});
+$(".navi_icon, #side_icon").css("width","17px")
+    .css("height","17px");
+
+//解除登录按钮
+$("#release").css( "background-color","#ff2e33")
+    .css("color", "white")
+    .css("text-shadow", "0 1px 0 #ff0000");
