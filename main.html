@@ -28,16 +28,16 @@
     <div data-role="content" class="main_content">
         <a href="#config-page" id="config_button">测试：配置（位置信息）</a>
         <a id="first_pic" href="#profile-page">
-            <img src="" alt="" >测试：账户信息
+            测试：账户信息
         </a>
         <a id="second_pic" href="#signup-page">
-            <img src="" alt="">测试：注册第二步
+            测试：注册页
         </a>
-        <a id="third_pic">
-            <img src="" alt="" >测试：选择交易物品
+        <a id="third_pic" href="#">
+            测试：选择交易物品(未登录)
         </a>
         <a id="forth_pic">
-            <img src="" alt="" >测试：确认交易
+            测试：确认交易
         </a>
     </div>
 
@@ -311,6 +311,22 @@
     </div>
 </div>
 
+<!--选择物品-->
+<div data-role="page" id="select-page">
+    <!--上方导航栏-->
+    <header data-role="header">
+        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
+            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
+        </a>
+        <h1>Select</h1>
+    </header>
+    <div data-role="content">
+        <div class="ui-field-contain" id="drone_field">
+            <a id="choose_0">Test : You can only choose this</a>
+        </div>
+    </div>
+</div>
+
 <!--地图页-->
 <div data-role="page" id="map-page">
     <!--上方导航栏-->
@@ -326,9 +342,13 @@
     </div>
 </div>
 
+<!--Some global variables-->
 <script>
     //标识目前所登录的账户
     let currentUser = undefined;
+    //表示目前的机型选择
+    let currentDrone = undefined;
+    let droneCounter = 0;
 
     //用户请求一次手机验证码后触发20s倒计时，期间不能再次请求验证码（此功能暂时废弃）
     let i=20;
@@ -344,6 +364,7 @@
     }
     $(".send_auth_button").click(function(){i=20}).click(function(){arr(".send_auth_button")});
 
+
 </script>
 <!--布局相关Script-->
 <script src="scripts/layout.js"></script>
@@ -353,6 +374,8 @@
 <script src="scripts/init.js"></script>
 <!--地图相关Script-->
 <script src="scripts/map.js"></script>
+<!--Drones_Script-->
+<script src="scripts/drones.js"></script>
 <!--调用geth相关Script-->
 <script src="scripts/geth.js"></script>
 <!--仅供测试使用的Script-->

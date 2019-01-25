@@ -104,6 +104,10 @@ function login_action(result) {
     $("#usr_icon_text").val("Welcome! " + result['user']);
     //前端登记已登录的用户名
     currentUser = result['phone'];
+    //激活Drone选择按钮
+    $("#third_pic").attr("href", "#select-page")
+        .html("测试：选择交易物品(已登录)")
+        .click(()=>getDroneCount());
 }
 
 //解除登录，及成功之后的客户端操作
@@ -114,12 +118,19 @@ function cancel_login_action() {
         url: host_url + "exit",
         data: {"request":"user"},
         tradition: true,
-        async: true,
+        async: false,
         success: function () {
             user_msg_alt("","","");
             //修改侧边菜单图标和数据
             $("#usr_icon_link").attr("href","#login-page");
             $("#usr_icon_text").val("Welcome! Please tap here to login");
+            //解除Drone选择按钮
+            $("#third_pic").attr("href", "#")
+                .html("测试：选择交易物品(已解除登录)")
+                .unbind();
+        },
+        error: ()=>{
+            alert("连接失败");
         },
     });
 }

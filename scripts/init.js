@@ -19,7 +19,7 @@ function init() {
 
 
 function init_ext(res) {
-    const result = JSON.parse(res);
+    let result = JSON.parse(res);
     if (result['return']==="un"){
         //未登录（测试）
         alert("未登录！");
