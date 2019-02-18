@@ -11,10 +11,11 @@ const submit_arr=[
     ["#forget_psw_button","forget_psw","#forget_psw_form"],//忘密码
     ["#alter_normal_button","alter_normal","#alter_normal_form"],//改普通信息
     ["#alter_phone_button","alter_phone","#alter_phone_form"],//改手机
-    ["#alter_psw_button","alter_psw","#alter_psw_form"]//改密码
+    ["#alter_psw_button","alter_psw","#alter_psw_form"],//改密码
+    ["#exec_button","exec","exec_form"]//支付操作提交
 ];
 //ajax的表单发送方法　传入参数:url 表单id
-//基于ajax方法的不同对象添加额外的操作（弹窗以外）
+//基于ajax方法的不同对象添加额外的操作
 function extend_act(num, result_json) {
     //收到了来自服务器的正确回复
     let result = JSON.parse(result_json);
@@ -60,6 +61,11 @@ function extend_act(num, result_json) {
                 alert("密码修改成功");
                 //没有额外操作了
                 window.location.href="#profile-page";
+                break;
+            //支付操作提交
+            case 6:
+                alert("支付操作成功，无人机正在执行您的操作！");
+                window.location.href="#main-page";
                 break;
         }
         $("input").val("");
