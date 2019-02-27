@@ -31,10 +31,7 @@ function extend_act(num, result_json) {
             case 1:
                 alert("你成功注册了账户！");
                 //１，向服务器提交账号相关的剩余信息
-                //２，服务端将登录信息暂存在session里
-                //３，服务端触发以当前注册账户登录
-                login_action(result);
-                window.location.href="#main-page";
+                window.location.href="#login-page";
                 break;
             //忘密码
             case 2:

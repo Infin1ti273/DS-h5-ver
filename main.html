@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, user-scalable=0">
     <title>Drone Sharing Platform</title>
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-    <link rel="stylesheet" href="themes/customstyle.min.css"/>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
@@ -18,27 +17,16 @@
 <div data-role="page" id="main-page">
     <!--上方导航栏-->
     <header data-role="header">
-        <a href="#sidebar" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/bars-white.png" alt="bar" id="side_icon">
-        </a>
-        <h1>ASS♂WE♂CAN</h1>
+        <a href="#sidebar" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-left">菜单</a>
+        <h1>Drone sharing</h1>
+
     </header>
 
     <!--首页中部主体-->
     <div data-role="content" class="main_content">
-        <a href="#config-page" id="config_button">测试：配置（位置信息）</a>
-        <a id="first_pic" href="#profile-page">
-            测试：账户信息
-        </a>
-        <a id="second_pic" href="#signup-page">
-            测试：注册页
-        </a>
-        <a id="third_pic" href="#select-page">
-            测试：选择交易物品(未登录)
-        </a>
-        <a id="forth_pic">
-            测试：确认交易
-        </a>
+        <h2>Get a blockchain drone for yourself:</h2>
+        <h1>BY 3 STEPS!</h1>
+        <!--a id="first_pic" href="#profile-page">测试：账户信息</a-->
     </div>
 
     <!--侧边菜单-->
@@ -46,24 +34,16 @@
         <!--用户按钮-->
         <div class="side_comp" id="side_comp1">
             <a id="usr_icon_link" href="#login-page">
-                <p id="usr_icon_text">Welcome! Please tap here to login</p>
+                <p id="usr_icon_text">Welcome! <br/>Please tap here to login</p>
             </a>
         </div>
         <!--按钮栏-->
         <div class="side_comp" id="side_comp2">
             <ul data-role="listview">
-                <li>
-                    <a href="" id="Message">Message</a>
-                </li>
-                <li>
-                    <a href="" id="History">History</a>
-                </li>
-                <li>
-                    <a href="" id="Wallet">Wallet</a>
-                </li>
-                <li>
-                    <a href="" id="Settings">Settings</a>
-                </li>
+                <li data-icon="false"><a href="" id="Message">Message</a></li>
+                <li data-icon="false"><a href="" id="History">History</a></li>
+                <li data-icon="false"><a href="#wallet-page" id="Wallet">Wallet</a></li>
+                <li data-icon="false"><a href="" id="Settings">Settings</a></li>
             </ul>
         </div>
 
@@ -71,7 +51,18 @@
 
     <!--页脚-->
     <footer data-role="footer">
-        <h1>hello</h1>
+        <ul data-role="listview">
+            <li>Drone: Please choose a drone!</li>
+            <li>Location: Please choose a drone!</li>
+            <li>Status: Please choose a drone!</li>
+        </ul>
+        <div data-role="navbar">
+            <ul>
+                <li><a id="third_pic" href="#select-page" data-icon="bars">1 Choice</a></li>
+                <li><a href="#config-page" id="config_button" data-icon="edit">2 Configurations</a></li>
+                <li><a id="forth_pic" href="#exec-page" data-icon="check">3 Deployment</a></li>
+            </ul>
+        </div>
     </footer>
 </div>
 
@@ -79,9 +70,7 @@
 <div data-role="page" id="config-page">
     <!--上方导航栏-->
     <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
+        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
         <h1>Configurations</h1>
     </header>
 
@@ -89,12 +78,12 @@
     <div data-role="content">
         <form action="http://localhost:8000/map" method="post">
             <label>
-                起点：<a href="#map-page"><input type="text" value="未设置" name="start" readonly></a>
+                Origin: <a href="#map-page"><input type="text" value="current location" name="start" readonly></a>
             </label>
             <label>
-                终点: <a href="#map-page" id="terminal_button"><input type="text" value="未设置" name="terminal" readonly></a>
+                Terminal: <a href="#map-page" id="terminal_button"><input type="text" value="not configured" name="terminal" readonly></a>
             </label>
-            <input type="submit" value="设置完成">
+            <input type="submit" value="Finish">
         </form>
     </div>
 </div>
@@ -103,9 +92,7 @@
 <div data-role="page" id="login-page">
     <!--上方导航栏-->
     <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
+        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
         <h1>Login</h1>
     </header>
 
@@ -114,22 +101,22 @@
         <form action="#" method="post" id="login_form">
             <h3>
                 <label>
-                    账号(phone)：<input type="number" maxlength="11" name="phone">
+                    Phone：<input type="number" maxlength="11" name="phone">
                 </label>
             </h3>
             <h3>
                 <label>
-                    密码：<input type="password" name="password" id="login_psw_input">
+                    Password：<input type="password" name="password" id="login_psw_input">
                 </label>
             </h3>
-            <input type="button" value="登录" name="login_btn" id="login_button">
+            <input type="button" value="Login" name="login_btn" id="login_button">
         </form>
 
         <p>
-            没有账号？ <a href="#signup-page">注册一个！</a><br>
+            No account？ <a href="#signup-page">Sign up!</a><br>
         </p>
         <p>
-            忘了密码？ <a href="#forget-page-phone">点此找回！</a>
+            Forgot password？ <a href="#forget-page-phone">Click here!</a>
         </p>
     </div>
 </div>
@@ -161,26 +148,24 @@
 <div data-role="page" id="signup-page">
     <!--上方导航栏-->
     <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
-        <h1>完善你的信息！</h1>
+        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
+        <h1>Sign up</h1>
     </header>
 
     <!--主体-->
     <div data-role="content">
         <form action="#" method="post" id="signup_others_form">
             <label>
-                账号（phone）： <input type="number" name="phone" maxlength="11">
+                Phone: <input type="number" name="phone" maxlength="11">
             </label>
             <label>
-                用户名：<input type="text" name="name">
+                Name: <input type="text" name="name">
             </label>
             <label>
-                密码：<input type="password" name="psw" id="signup_psw_input">
+                Password: <input type="password" name="psw" id="signup_psw_input">
             </label>
             <label>
-                确认密码：<input type="password" name="psw2" id="signup_psw2_input">
+                Signup: <input type="password" name="psw2" id="signup_psw2_input">
             </label>
             <input type="button" value="注册" name="signup_btn" id="signup_others_button">
         </form>
@@ -191,9 +176,7 @@
 <div data-role="page" id="forget-page-phone">
     <!--上方导航栏-->
     <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
+        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
         <h1>修改信息</h1>
     </header>
     <div data-role="content">
@@ -214,9 +197,7 @@
 <div data-role="page" id="profile-page">
     <!--上方导航栏-->
     <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
+        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
         <h1>用户信息</h1>
     </header>
     <!--主体-->
@@ -247,9 +228,7 @@
 <div data-role="page" id="alter-page-normal">
     <!--上方导航栏-->
     <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
+        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
         <h1>修改信息</h1>
     </header>
     <div data-role="content">
@@ -269,9 +248,7 @@
 <div data-role="page" id="alter-page-phone">
     <!--上方导航栏-->
     <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
+        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
         <h1>修改信息</h1>
     </header>
     <div data-role="content">
@@ -292,9 +269,7 @@
 <div data-role="page" id="alter-page-psw">
     <!--上方导航栏-->
     <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
+        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
         <h1>修改信息</h1>
     </header>
     <div data-role="content">
@@ -315,15 +290,15 @@
 <div data-role="page" id="select-page">
     <!--上方导航栏-->
     <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
+        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
         <h1>Select</h1>
     </header>
     <div data-role="content">
-        <div class="ui-field-contain" id="drone_field">
-            <a id="choose_0">Test : You can only choose this</a>
-        </div>
+
+        <ul data-role="listview">
+            <li data-icon="plus"><a href="#"><h1>Drone Sample 1</h1></a></li>
+            <li data-icon="plus"><a href="#"><h1>Drone Sample 2</h1></a></li>
+        </ul>
     </div>
 </div>
 
@@ -331,11 +306,9 @@
 <div data-role="page" id="map-page">
     <!--上方导航栏-->
     <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
+        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
         <h1>Map</h1>
-        <a><h1>选择位置</h1></a>
+        <a class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left">select</a>
     </header>
     <div data-role="content">
         <!--DOM for Map-->
@@ -346,21 +319,16 @@
 <!--Wallet-->
 <div data-role="page" id="wallet-page">
     <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
+        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
         <h1>Wallet</h1>
     </header>
     <div data-role="content">
-        <a id="g-search" href="#">
-            查询
-        </a>
-        <a id="g-change" href="#">
-            密码修改
-        </a>
-        <a id="g-charge" href="#">
-            充值
-        </a>
+        <ul data-role="listview">
+            <li><a id="g-search" href="#">Inquiry</a></li>
+            <li><a id="g-change" href="#">Password</a></li>
+            <li><a id="g-charge" href="#">Recharge</a></li>
+        </ul>
+
     </div>
 
 </div>
@@ -368,24 +336,22 @@
 <!--确认交易-->
 <div data-role="page" id="exec-page">
     <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
-        <h1>确认交易</h1>
+        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
+        <h1>Deployment</h1>
     </header>
     <div data-role="content">
-        请输入您的交易账号和密码
+        <h3>Please input your account and password:</h3>
         <form action="#" method="post" id="exec_form">
             <label>
-                交易账号： <input type="text" name="account">
+                Account: <input type="text" name="account">
             </label>
             <label>
-                密码：<input type="password" name="psw" id="exec_psw_input">
+                Password: <input type="password" name="psw" id="exec_psw_input">
             </label>
             <label>
-                确认密码：<input type="password" name="psw2" id="exec_psw2_input">
+                Confirm password: <input type="password" name="psw2" id="exec_psw2_input">
             </label>
-            <input type="button" value="注册" name="exec_btn" id="exec_button">
+            <input type="button" value="Deploy!" name="exec_btn" id="exec_button">
         </form>
     </div>
 </div>

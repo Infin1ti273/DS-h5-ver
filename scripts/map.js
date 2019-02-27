@@ -25,6 +25,8 @@ function mapInit() {
     //缩略图功能
     map.addControl(new BMap.OverviewMapControl());
 
+    var mk = new BMap.Marker(point);//创建标注
+    map.addOverlay(mk);//将标注添加到地图中
 
     let geolocation = new BMap.Geolocation();
     geolocation.getCurrentPosition(function(r){
