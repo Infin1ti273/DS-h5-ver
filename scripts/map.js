@@ -12,6 +12,7 @@ function loadMap() {
 }
 
 //调用地图
+$("#terminal_button").click(()=>mapInit());
 function mapInit() {
     let map = new BMap.Map("map");
     //创建点坐标
@@ -25,7 +26,7 @@ function mapInit() {
     //缩略图功能
     map.addControl(new BMap.OverviewMapControl());
 
-    var mk = new BMap.Marker(point);//创建标注
+    let mk = new BMap.Marker(point);//创建标注
     map.addOverlay(mk);//将标注添加到地图中
 
     let geolocation = new BMap.Geolocation();
@@ -53,5 +54,11 @@ function mapInit() {
 }
 window.onload = loadMap;
 
-//绑定按钮
-$("#terminal_button").click(()=>mapInit());
+$("#terminal-select-button").click(setMapTerminal());
+
+function setMapTerminal() {
+    let terminal = "101010";
+    drone.terminal = terminal;
+    $("#input-terminal").val(terminal);
+    mainListLocationBind(drone.start, drone.terminal);
+}

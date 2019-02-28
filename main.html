@@ -42,7 +42,7 @@
             <ul data-role="listview">
                 <li data-icon="false"><a href="" id="Message">Message</a></li>
                 <li data-icon="false"><a href="" id="History">History</a></li>
-                <li data-icon="false"><a href="#wallet-page" id="Wallet">Wallet</a></li>
+                <li data-icon="false"><a href="#wallet-page" id="wallet_button">Wallet</a></li>
                 <li data-icon="false"><a href="" id="Settings">Settings</a></li>
             </ul>
         </div>
@@ -52,15 +52,15 @@
     <!--页脚-->
     <footer data-role="footer">
         <ul data-role="listview">
-            <li>Drone: Please choose a drone!</li>
-            <li>Location: Please choose a drone!</li>
-            <li>Status: Please choose a drone!</li>
+            <li id="main-list-drone">Drone: Please choose a drone!</li>
+            <li id="main-list-location">Location: Please choose a drone!</li>
+            <li id="main-list-status">Status: Please choose a drone!</li>
         </ul>
         <div data-role="navbar">
             <ul>
-                <li><a id="third_pic" href="#select-page" data-icon="bars">1 Choice</a></li>
-                <li><a href="#config-page" id="config_button" data-icon="edit">2 Configurations</a></li>
-                <li><a id="forth_pic" href="#exec-page" data-icon="check">3 Deployment</a></li>
+                <li><a id="choice_button" href="#select-page" data-icon="bars">1 Choice</a></li>
+                <li><a id="config_button" href="#config-page" data-icon="edit">2 Configurations</a></li>
+                <li><a id="deploy_button" href="#exec-page" data-icon="check">3 Deployment</a></li>
             </ul>
         </div>
     </footer>
@@ -76,15 +76,13 @@
 
     <!--主体-->
     <div data-role="content">
-        <form action="http://localhost:8000/map" method="post">
-            <label>
-                Origin: <a href="#map-page"><input type="text" value="current location" name="start" readonly></a>
-            </label>
-            <label>
-                Terminal: <a href="#map-page" id="terminal_button"><input type="text" value="not configured" name="terminal" readonly></a>
-            </label>
-            <input type="submit" value="Finish">
-        </form>
+        <label>
+            Origin: <a href="#map-page"><input type="text" id="input-start" value="current location" readonly></a>
+        </label>
+        <label>
+            Terminal: <a href="#map-page" id="terminal_button"><input id="input-terminal" type="text" value="not configured" readonly></a>
+        </label>
+        <button type="submit" id="location_button">Finish</button>
     </div>
 </div>
 
@@ -221,7 +219,7 @@
     <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改手机号</a>
     <!--alter-page-psw-->
     <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改密码</a>
-    <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;" id="release">解除登录</a>
+    <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;" id="logout_button">解除登录</a>
 </div>
 
 <!--账户信息更改(普通)-->
@@ -296,8 +294,14 @@
     <div data-role="content">
 
         <ul data-role="listview">
-            <li data-icon="plus"><a href="#"><h1>Drone Sample 1</h1></a></li>
-            <li data-icon="plus"><a href="#"><h1>Drone Sample 2</h1></a></li>
+            <li data-icon="plus">
+                <a><h1>Drone Sample 1</h1></a>
+                <a id="drone_sample_1"></a>
+            </li>
+            <li data-icon="plus">
+                <a><h1>Drone Sample 2</h1></a>
+                <a id="drone_sample_2"></a>
+            </li>
         </ul>
     </div>
 </div>
@@ -308,7 +312,7 @@
     <header data-role="header">
         <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
         <h1>Map</h1>
-        <a class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left">select</a>
+        <a class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left" id="terminal-select-button">select</a>
     </header>
     <div data-role="content">
         <!--DOM for Map-->
@@ -325,12 +329,25 @@
     <div data-role="content">
         <ul data-role="listview">
             <li><a id="g-search" href="#">Inquiry</a></li>
-            <li><a id="g-change" href="#">Password</a></li>
-            <li><a id="g-charge" href="#">Recharge</a></li>
+            <li><a id="g-charge" href="#g-dialog">Recharge</a></li>
+            <li><a id="g-withdraw" href="#g-dialog">Withdraw</a></li>
         </ul>
 
     </div>
+</div>
 
+<!--Wallet-dialog-->
+<div data-role="page" data-dialog="true" id="g-dialog">
+    <div data-role="header">
+        <h1 id="dialog-title"></h1>
+    </div>
+    <div data-role="main" class="ui-content">
+        <label>
+            <p id="dialog-text"></p>
+            <input type="number" id="money"/>
+        </label>
+        <button id="dialog-button">Ok</button>
+    </div>
 </div>
 
 <!--确认交易-->
@@ -358,11 +375,6 @@
 
 <!--Some global variables-->
 <script>
-    //标识目前所登录的账户
-    let currentUser = undefined;
-    //表示目前的机型选择
-    let currentDrone = undefined;
-    let droneCounter = 0;
 
     //用户请求一次手机验证码后触发20s倒计时，期间不能再次请求验证码（此功能暂时废弃）
     let i=20;
@@ -382,10 +394,10 @@
 </script>
 <!--布局相关Script-->
 <script src="scripts/layout.js"></script>
-<!--业务逻辑相关Script-->
-<script src="scripts/service.js"></script>
 <!--应用初始化相关Script-->
 <script src="scripts/init.js"></script>
+<!--业务逻辑相关Script-->
+<script src="scripts/service.js"></script>
 <!--地图相关Script-->
 <script src="scripts/map.js"></script>
 <!--Drones_Script-->

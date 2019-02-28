@@ -5,3 +5,16 @@ let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 const ver = () => {console.log(web3.version);};
 
 ver();
+
+function gethInquiry(geth, psw) {
+
+}
+
+function gethRefund(geth, psw, cash) {
+
+}
+
+function gethRecharge(geth, psw, cash) {
+
+}
+export {gethInquiry,gethRefund,gethRecharge};

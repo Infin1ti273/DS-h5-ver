@@ -2,6 +2,8 @@
 
 //与服务器端通信的根目录
 const host_url="http://localhost:8000/";
+//标识目前所登录的账户
+let currentUser = undefined;
 
 //配置ajax的数组，[按钮id,url末端,表单id]
 const submit_arr=[
@@ -16,7 +18,7 @@ const submit_arr=[
 ];
 //ajax的表单发送方法　传入参数:url 表单id
 //基于ajax方法的不同对象添加额外的操作
-function extend_act(num, result_json) {
+function extendAct(num, result_json) {
     //收到了来自服务器的正确回复
     let result = JSON.parse(result_json);
     if (result['return']==="ok"){
@@ -25,7 +27,7 @@ function extend_act(num, result_json) {
             case 0:
                 alert("登录成功！");
                 //修改侧边菜单图标的内容和链接
-                login_action(result);
+                loginAction(result);
                 window.location.href="#main-page";
                 break;
             case 1:
@@ -43,14 +45,14 @@ function extend_act(num, result_json) {
             case 3:
                 alert("信息修改成功！");
                 //触发用户信息修正
-                user_msg_alt(result['username'], result['phone'], result['email']);
+                userMsgAlt(result['username'], result['phone'], result['email']);
                 window.location.href="#profile-page";
                 break;
             //改手机
             case 4:
                 alert("手机修改成功！");
                 //触发用户信息修正
-                user_msg_alt(result['username'], result['phone'], result['email']);
+                userMsgAlt(result['username'], result['phone'], result['email']);
                 window.location.href="#profile-page";
                 break;
             //改密码
@@ -86,7 +88,7 @@ function auth(url, form_id, num){
         dataType: "json",
         async: false, //同步操作。即：用户必须要等待服务器反馈之后才能操作
         success: (result) => {
-            extend_act(num, result)
+            extendAct(num, result)
         },
         error: () => {
             alert("连接错误！")
@@ -99,9 +101,9 @@ for(let i=0;i<submit_arr.length;i++){
 }
 
 //登录完成后客户端的操作
-function login_action(result) {
+function loginAction(result) {
     //更新用户信息页数据
-    user_msg_alt(result['username'], result['phone'], result['email']);
+    userMsgAlt(result['username'], result['phone'], result['email']);
     //修改侧边菜单图标和数据
     $("#usr_icon_link").attr("href","#profile-page");
     $("#usr_icon_text").val("Welcome! " + result['user']);
@@ -114,7 +116,8 @@ function login_action(result) {
 }
 
 //解除登录，及成功之后的客户端操作
-function cancel_login_action() {
+$("#logout_button").click(()=>{cancelLoginAction()});
+function cancelLoginAction() {
     //向服务器请求解除登录,不要求返回数据
     $.ajax({
         type: "POST",
@@ -123,25 +126,75 @@ function cancel_login_action() {
         tradition: true,
         async: false,
         success: function () {
-            user_msg_alt("","","");
+            userMsgAlt("","","");
             //修改侧边菜单图标和数据
             $("#usr_icon_link").attr("href","#login-page");
             $("#usr_icon_text").val("Welcome! Please tap here to login");
-            //解除Drone选择按钮
-            $("#third_pic").attr("href", "#")
-                .html("测试：选择交易物品(已解除登录)")
-                .unbind();
+            currentUser = undefined;
         },
         error: ()=>{
-            alert("连接失败");
+            alert("Fail to sign out!");
         },
     });
 }
 
 //更新修正用户信息页的操作
-function user_msg_alt(name, phone, email) {
+function userMsgAlt(name, phone, email) {
     $("#prof_user").html(name);
     $("#prof_phone").html(phone);
     $("#prof_email").html(email);
+}
+
+//wallet页服务配置
+function walletConfig() {
+    let pair;   //账号－密码对
+    $("#g-search").click(()=>{
+        pair = getGethAccount(currentUser);
+        gethInquiry(pair[0],pair[1]);
+    });
+    $("#g-withdraw").click(walletPanel(0));
+    $("#g-charge").click(walletPanel(1));
+}
+walletConfig();
+
+
+function walletPanel(num) {
+    let pair;
+    switch (num) {
+        case 0:
+            $("#dialog-title").html("Withdraw");
+            $("#dialog-text").html("Please input the balance you want to withdraw.");
+            $("#dialog-button").click(()=>{
+                pair = getGethAccount(currentUser);
+                gethRefund(pair[0],pair[1],$("#dialog-text").val());
+            });
+            break;
+        case 1:
+            $("#dialog-title").html("Recharge");
+            $("#dialog-text").html("Please input how much you want to recharge.");
+            $("#dialog-button").click(()=>{
+                pair = getGethAccount(currentUser);
+                gethRecharge(pair[0],pair[1],$("#dialog-text").val());
+            });
+            break;
+        }
+}
+
+//根据用户名向服务器请求对应的geth账户
+function getGethAccount(user) {
+    $.ajax({
+        type: "POST",
+        url: host_url + "getGeth",
+        data: [user].serialize(),
+        tradition: true,
+        dataType: "json",
+        async: false,
+        success: (result) => {
+            return JSON.parse(result);
+        },
+        error: () => {
+            alert("Failed to get blockchain account!")
+        },
+    });
 }
 
