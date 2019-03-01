@@ -6,15 +6,4 @@ const ver = () => {console.log(web3.version);};
 
 ver();
 
-function gethInquiry(geth, psw) {
-
-}
-
-function gethRefund(geth, psw, cash) {
-
-}
-
-function gethRecharge(geth, psw, cash) {
-
-}
-export {gethInquiry,gethRefund,gethRecharge};
+export {ver};

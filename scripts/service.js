@@ -1,4 +1,5 @@
 //业务相关脚本(ajax的提交和反馈) 登录　和　解除登录
+import {ver} from "geth"
 
 //与服务器端通信的根目录
 const host_url="http://localhost:8000/";
@@ -31,8 +32,10 @@ function extendAct(num, result_json) {
                 window.location.href="#main-page";
                 break;
             case 1:
-                alert("你成功注册了账户！");
-                //１，向服务器提交账号相关的剩余信息
+                //向geth请求生成一个对应的以太坊账号
+                let pair = gethGenerate(result['phone']);
+                //将账号-密码值对交由服务器保存
+                pairUpdate(pair);
                 window.location.href="#login-page";
                 break;
             //忘密码
@@ -58,7 +61,6 @@ function extendAct(num, result_json) {
             //改密码
             case 5:
                 alert("密码修改成功");
-                //没有额外操作了
                 window.location.href="#profile-page";
                 break;
             //支付操作提交
@@ -100,6 +102,27 @@ for(let i=0;i<submit_arr.length;i++){
     $(submit_arr[i][0]).click( () => {auth(submit_arr[i][1],submit_arr[i][2],i);})
 }
 
+function gethGenerate(psw) {
+    return ["aaa",psw];
+}
+
+function pairUpdate(pair) {
+    $.ajax({
+        type: "POST",
+        url: host_url + url,
+        data: pair.serialize(),
+        tradition: true,
+        dataType: "json",
+        async: false,
+        success: () => {
+            alert("你成功注册了账户！");
+        },
+        error: () => {
+            alert("Update error！")
+        },
+    })
+}
+
 //登录完成后客户端的操作
 function loginAction(result) {
     //更新用户信息页数据
@@ -109,10 +132,7 @@ function loginAction(result) {
     $("#usr_icon_text").val("Welcome! " + result['user']);
     //前端登记已登录的用户名
     currentUser = result['phone'];
-    //激活Drone选择按钮
-    $("#third_pic").attr("href", "#select-page")
-        .html("测试：选择交易物品(已登录)")
-        .click(()=>getDroneCount());
+    home_toggle();
 }
 
 //解除登录，及成功之后的客户端操作
@@ -198,3 +218,14 @@ function getGethAccount(user) {
     });
 }
 
+function gethInquiry(geth, psw) {
+    ver()
+}
+
+function gethRefund(geth, psw, cash) {
+    ver()
+}
+
+function gethRecharge(geth, psw, cash) {
+    ver()
+}

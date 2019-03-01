@@ -47,7 +47,6 @@ function home_toggle() {
     }
 }
 
-
 /* Remove the comment when testing
 home_toggle();
 */
