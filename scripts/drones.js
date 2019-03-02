@@ -98,5 +98,5 @@ function getDroneCount() {
         }
     });
 }
-getDroneCount();
+//getDroneCount();
 

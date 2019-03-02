@@ -1,16 +1,69 @@
-//业务相关脚本(ajax的提交和反馈) 登录　和　解除登录
-import {ver} from "geth"
+//应用启动的初始化操作，向服务器检测用户登录状态，如果没有超过有效期，自动触发登录
+//如果用户未登录，则锁定主页下三个按钮
 
 //与服务器端通信的根目录
 const host_url="http://localhost:8000/";
+init();
+function init() {
+    $.ajax({
+        type: "POST",
+        url: host_url + "init",
+        data: {"request":"if_login"},
+        tradition: true,
+        dataType:"json",
+        async: false,
+        success: (result) => {
+            init_ext(result);
+        },
+        error: () => {
+            alert("网络无连接！")
+        }
+    });
+}
+
+function init_ext(res) {
+    let result = JSON.parse(res);
+    if (result['return']==="un"){
+        //未登录（测试）
+        alert("未登录！");
+    }
+    else{
+        loginAction(result);
+    }
+}
+
+function home_toggle() {
+    // noinspection JSJQueryEfficiency
+    let p = $("#config_button").attr("href");
+    if(p === "#") {
+        $("#config_button").attr("href","#config-page");
+        $("#choice_button").attr("href","#select-page");
+        $("#deploy_button").attr("href","#exec-page");
+        $("#wallet_button").attr("href","#wallet-page");
+    }
+    else {
+        $("#config_button").attr("href","#");
+        $("#choice_button").attr("href","#");
+        $("#deploy_button").attr("href","#");
+        $("#wallet_button").attr("href","#");
+    }
+}
+
+/* Remove the comment when testing
+home_toggle();
+*/
+
+
+
+//业务相关脚本(ajax的提交和反馈) 登录　和　解除登录
+
 //标识目前所登录的账户
 let currentUser = undefined;
 
 //配置ajax的数组，[按钮id,url末端,表单id]
 const submit_arr=[
     ["#login_button","login","#login_form"],//登录
-    //["#signup_phone_button","signup1","#signup_phone_form"],//注册１
-    ["#signup_others_button","signup2","#signup_others_form"],//注册２
+    ["#signup_others_button","signup","#signup_others_form"],//注册
     ["#forget_psw_button","forget_psw","#forget_psw_form"],//忘密码
     ["#alter_normal_button","alter_normal","#alter_normal_form"],//改普通信息
     ["#alter_phone_button","alter_phone","#alter_phone_form"],//改手机
@@ -93,7 +146,7 @@ function auth(url, form_id, num){
             extendAct(num, result)
         },
         error: () => {
-            alert("连接错误！")
+            alert("[Server]No response!")
         },
     });
 }
@@ -126,7 +179,7 @@ function pairUpdate(pair) {
 //登录完成后客户端的操作
 function loginAction(result) {
     //更新用户信息页数据
-    userMsgAlt(result['username'], result['phone'], result['email']);
+    userMsgAlt(result['name'], result['phone'], result['email']);
     //修改侧边菜单图标和数据
     $("#usr_icon_link").attr("href","#profile-page");
     $("#usr_icon_text").val("Welcome! " + result['user']);

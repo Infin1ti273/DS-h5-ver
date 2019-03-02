@@ -6,4 +6,3 @@ const ver = () => {console.log(web3.version);};
 
 ver();
 
-export {ver};
