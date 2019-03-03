@@ -67,7 +67,6 @@ function mainListReset() {
     $("#main-list-status").html("Status: Please choose a drone!");
 }
 
-
 function getDroneCount() {
     $("#drone_field").empty();
     $.ajax({
@@ -76,22 +75,7 @@ function getDroneCount() {
         dataType: "json",
         async: true,
         success: (res)=>{
-            /*传入对象为两组数组
-            let i;
-            for (i in result.num){
-                $("#drone_field").append('<a id="choose_' + result.drone[i] + '">'+ result.drone[i] +'</a>')
-            }
-            */
             droneCounter = JSON.parse(res);
-            /*为所有无人机选择按钮添加点击事件
-            for (let j=0;j<=droneCounter;j++){
-                $("#choose_"+ j).click(()=>{
-                        currentDrone = $("#choose_"+ j).attr("id");
-                        window.location.href="#main-page";
-                    }
-                )
-            }
-            */
         },
         error: () =>{
           drone.number = 0;

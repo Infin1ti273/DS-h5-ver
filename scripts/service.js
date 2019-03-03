@@ -36,16 +36,24 @@ function home_toggle() {
     // noinspection JSJQueryEfficiency
     let p = $("#config_button").attr("href");
     if(p === "#") {
-        $("#config_button").attr("href","#config-page");
-        $("#choice_button").attr("href","#select-page");
-        $("#deploy_button").attr("href","#exec-page");
-        $("#wallet_button").attr("href","#wallet-page");
+        $("#config_button").attr("href","#config-page")
+            .attr("color","#333");
+        $("#choice_button").attr("href","#select-page")
+            .attr("color","#333");
+        $("#deploy_button").attr("href","#exec-page")
+            .attr("color","#333");
+        $("#wallet_button").attr("href","#wallet-page")
+            .attr("color","#333");
     }
     else {
-        $("#config_button").attr("href","#");
-        $("#choice_button").attr("href","#");
-        $("#deploy_button").attr("href","#");
-        $("#wallet_button").attr("href","#");
+        $("#config_button").attr("href","#")
+            .attr("color","#ddd");
+        $("#choice_button").attr("href","#")
+            .attr("color","#ddd");
+        $("#deploy_button").attr("href","#")
+            .attr("color","#ddd");
+        $("#wallet_button").attr("href","#")
+            .attr("color","#ddd");
     }
 }
 

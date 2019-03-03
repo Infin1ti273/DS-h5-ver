@@ -54,7 +54,7 @@ function mapInit() {
 }
 window.onload = loadMap;
 
-$("#terminal-select-button").click(setMapTerminal());
+$("#terminal-select-button").click(setMapTerminal);
 
 function setMapTerminal() {
     let terminal = "101010";
