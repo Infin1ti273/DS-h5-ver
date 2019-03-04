@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../DS-h5ver/.idea/DS-h5ver.iml" filepath="$PROJECT_DIR$/../DS-h5ver/.idea/DS-h5ver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/DS-h5-ver.iml" filepath="$PROJECT_DIR$/.idea/DS-h5-ver.iml" />
     </modules>
   </component>
 </project>

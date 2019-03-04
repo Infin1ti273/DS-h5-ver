@@ -176,10 +176,10 @@ function pairUpdate(pair) {
         dataType: "json",
         async: false,
         success: () => {
-            alert("你成功注册了账户！");
+            alert("[Blockchain+Update]Sign up complete!");
         },
         error: () => {
-            alert("Update error！")
+            alert("[Blockchain]Update error!")
         },
     })
 }
@@ -214,7 +214,7 @@ function cancelLoginAction() {
             currentUser = undefined;
         },
         error: ()=>{
-            alert("Fail to sign out!");
+            alert("[Logout]Fail to sign out!");
         },
     });
 }

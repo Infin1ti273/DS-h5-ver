@@ -1,7 +1,6 @@
 {
-  "name": "DS-h5ver",
+  "name": "DS-h5-ver",
   "version": "1.0.0",
   "dependencies": {
-    "web3": "^1.0.0-beta.37"
   }
 }
