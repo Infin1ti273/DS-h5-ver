@@ -74,7 +74,6 @@ const submit_arr=[
     ["#signup_others_button","signup","#signup_others_form"],//注册
     ["#forget_psw_button","forget_psw","#forget_psw_form"],//忘密码
     ["#alter_normal_button","alter_normal","#alter_normal_form"],//改普通信息
-    ["#alter_phone_button","alter_phone","#alter_phone_form"],//改手机
     ["#alter_psw_button","alter_psw","#alter_psw_form"],//改密码
     ["#exec_button","exec","exec_form"]//支付操作提交
 ];
@@ -112,20 +111,13 @@ function extendAct(num, result_json) {
                 userMsgAlt(result['username'], result['phone'], result['email']);
                 window.location.href="#profile-page";
                 break;
-            //改手机
-            case 4:
-                alert("手机修改成功！");
-                //触发用户信息修正
-                userMsgAlt(result['username'], result['phone'], result['email']);
-                window.location.href="#profile-page";
-                break;
             //改密码
-            case 5:
+            case 4:
                 alert("密码修改成功");
                 window.location.href="#profile-page";
                 break;
             //支付操作提交
-            case 6:
+            case 5:
                 alert("支付操作成功，无人机正在执行您的操作！");
                 window.location.href="#main-page";
                 break;

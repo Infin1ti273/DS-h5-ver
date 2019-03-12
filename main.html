@@ -26,7 +26,6 @@
     <div data-role="content" class="main_content">
         <h2>Get a blockchain drone for yourself:</h2>
         <h1>BY 3 STEPS!</h1>
-        <!--a id="first_pic" href="#profile-page">测试：账户信息</a-->
     </div>
 
     <!--侧边菜单-->
@@ -119,29 +118,6 @@
     </div>
 </div>
 
-<!--注册1:手机验证(作废)-->
-<!--div data-role="page" id="signup-page-phone">
-    <上方导航栏>
-    <header data-role="header">
-        <a data-rel="back" style="background-color:#1676ac;border: 0;box-shadow:none">
-            <img src="themes/images/icons-png/back-white.png" alt="bar" class="navi_icon">
-        </a>
-        <h1>注册账户！</h1>
-    </header>
-    <div data-role="content">
-        <form action="#" id="signup_phone_form" name="alter_form">
-            <label>
-                手机号： <input name="alt_phone" maxlength="11" class="phone">
-            </label>
-            <a href="" class="ui-btn send_auth_button">发送验证码(暂不可用)</a>
-            <label>
-                验证码： <input name="key">
-            </label>
-            <input id="signup_phone_button" type="button" value="注册！">
-        </form>
-    </div>
-</div-->
-
 <!--注册-->
 <div data-role="page" id="signup-page">
     <!--上方导航栏-->
@@ -215,8 +191,6 @@
     </div>
     <!--alter-page-normal-->
     <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改信息</a>
-    <!--alter-page-phone-->
-    <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改手机号</a>
     <!--alter-page-psw-->
     <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;">修改密码</a>
     <a href="#" class="ui-btn" style="margin-left: 15px; margin-right: 15px;" id="logout_button">解除登录</a>
@@ -241,27 +215,6 @@
                 Email： <input type="email" name="email">
             </label>
             <input id="alter_normal_button" type="button" value="确认修改" >
-        </form>
-    </div>
-</div>
-
-<!--账户信息更改(手机)-->
-<div data-role="page" id="alter-page-phone">
-    <!--上方导航栏-->
-    <header data-role="header">
-        <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-back ui-btn-icon-left">back</a>
-        <h1>修改信息</h1>
-    </header>
-    <div data-role="content">
-        <form action="#" method="post" id="alter_phone_form">
-            <label>
-                Phone: <input type="number" maxlength="11" name="phone">
-            </label>
-                <a href="#" class="ui-btn send_auth_button">发送验证码(暂不可用)</a>
-            <label>
-                验证码： <input id="alt_key" name="key">
-            </label>
-            <input id="alter_phone_button" type="button" value="确认修改" >
         </form>
     </div>
 </div>
