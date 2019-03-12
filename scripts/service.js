@@ -8,29 +8,17 @@ function init() {
     $.ajax({
         type: "POST",
         url: host_url + "init",
-        data: {"request":"if_login"},
         tradition: true,
         dataType:"json",
-        async: false,
-        success: (result) => {
-            init_ext(result);
+        success: () => {
+            alert("[Server]Online!")
         },
         error: () => {
-            alert("网络无连接！")
+            alert("[Server]Offline!")
         }
     });
 }
 
-function init_ext(res) {
-    let result = JSON.parse(res);
-    if (result['return']==="un"){
-        //未登录（测试）
-        alert("未登录！");
-    }
-    else{
-        loginAction(result);
-    }
-}
 
 function home_toggle() {
     // noinspection JSJQueryEfficiency
@@ -60,6 +48,7 @@ function home_toggle() {
 /* Remove the comment when testing
 home_toggle();
 */
+
 
 
 
@@ -166,11 +155,11 @@ function pairUpdate(pair) {
     $.ajax({
         type: "POST",
         url: host_url + "update",
-        data: pair.serialize(),
+        data: pair,
         tradition: true,
         datatype: "json",
         async: false,
-        success: (result) => {
+        success: () => {
             alert("[Blockchain+Update]Sign up complete!");
         },
         error: () => {
@@ -185,7 +174,7 @@ function loginAction(result) {
     userMsgAlt(result['name'], result['phone'], result['email']);
     //修改侧边菜单图标和数据
     $("#usr_icon_link").attr("href","#profile-page");
-    $("#usr_icon_text").val("Welcome! " + result['user']);
+    $("#usr_icon_text").html("Welcome! " + result['name']);
     //前端登记已登录的用户名
     currentUser = result['phone'];
     home_toggle();
@@ -194,24 +183,12 @@ function loginAction(result) {
 //解除登录，及成功之后的客户端操作
 $("#logout_button").click(()=>{cancelLoginAction()});
 function cancelLoginAction() {
-    //向服务器请求解除登录,不要求返回数据
-    $.ajax({
-        type: "POST",
-        url: host_url + "exit",
-        data: {"request":"user"},
-        tradition: true,
-        async: false,
-        success: function () {
-            userMsgAlt("","","");
-            //修改侧边菜单图标和数据
-            $("#usr_icon_link").attr("href","#login-page");
-            $("#usr_icon_text").val("Welcome! Please tap here to login");
-            currentUser = undefined;
-        },
-        error: ()=>{
-            alert("[Logout]Fail to sign out!");
-        },
-    });
+    userMsgAlt("","","");
+    //修改侧边菜单图标和数据
+    $("#usr_icon_link").attr("href","#login-page");
+    $("#usr_icon_text").html("Welcome! Please tap here to login");
+    window.location.href="#main-page";
+    currentUser = undefined;
 }
 
 //更新修正用户信息页的操作

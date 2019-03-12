@@ -6,5 +6,6 @@ web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
 let ver = () => {
     console.log(web3.version.node);
 };
-ver();
+
+
 
