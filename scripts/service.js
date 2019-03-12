@@ -164,18 +164,21 @@ for(let i=0;i<submit_arr.length;i++){
 }
 
 function gethGenerate(psw) {
-    return ["aaa",psw];
+    return{
+        blockchain: "aaa",
+        password: psw
+    };
 }
 
 function pairUpdate(pair) {
     $.ajax({
         type: "POST",
-        url: host_url + url,
+        url: host_url + "update",
         data: pair.serialize(),
         tradition: true,
-        dataType: "json",
+        datatype: "json",
         async: false,
-        success: () => {
+        success: (result) => {
             alert("[Blockchain+Update]Sign up complete!");
         },
         error: () => {

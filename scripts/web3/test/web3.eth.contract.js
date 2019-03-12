@@ -227,8 +227,6 @@ describe('web3.eth.contract', function() {
         var steps = 1;
 
         provider.injectResult(address);
-        provider.injectBatchResults([]);
-
         provider.injectValidation(function (payload) {
             if (steps === 1) {
                 assert.equal(payload.jsonrpc, '2.0');
@@ -236,17 +234,16 @@ describe('web3.eth.contract', function() {
                 assert.equal(payload.params[0].data, code + '0000000000000000000000000000000000000000000000000000000000000002');
                 steps++;
 
-
             } else if (steps === 2) {
                 assert.equal(payload.jsonrpc, '2.0');
                 assert.equal(payload.method, 'eth_newBlockFilter');
                 steps++;
             }
         });
-
+        
         web3.eth.contract(description).new(2, {from: address, data: code}, function(e, myCon){
-            myCon._eth._requestManager.reset();
-            done();
+                done();
+                web3.stopWatching();
         });
     });
 });

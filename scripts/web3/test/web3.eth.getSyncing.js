@@ -44,6 +44,7 @@ describe('eth', function () {
 
             // call
             web3.eth.getSyncing(function(err, res){
+                console.log('err', err, 'res', res)
                 assert.strictEqual(res, false);
                 done();
             });

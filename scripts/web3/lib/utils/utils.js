@@ -1,18 +1,18 @@
 /*
-    This file is part of web3.js.
+    This file is part of web3.
 
-    web3.js is free software: you can redistribute it and/or modify
+    web3 is free software: you can redistribute it and/or modify
     it under the terms of the GNU Lesser General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    web3.js is distributed in the hope that it will be useful,
+    web3 is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Lesser General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
-    along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
+    along with web3.  If not, see <http://www.gnu.org/licenses/>.
 */
 /**
  * @file utils.js
@@ -176,7 +176,7 @@ var fromUtf8 = function(str, allowZero) {
  * @param {Number} optional padding
  * @returns {String} hex representation of input string
  */
-var fromAscii = function(str, num) {
+var fromAscii = function(str) {
     var hex = "";
     for(var i = 0; i < str.length; i++) {
         var code = str.charCodeAt(i);
@@ -184,7 +184,7 @@ var fromAscii = function(str, num) {
         hex += n.length < 2 ? '0' + n : n;
     }
 
-    return "0x" + hex.padEnd(num,'0');
+    return "0x" + hex;
 };
 
 /**

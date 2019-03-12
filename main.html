@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script type="text/javascript" src="scripts/web3/dist/web3.js"></script>
-	<script>
-		var Web3 = require('web3');
-		var web3 = new Web3();
-		web3.setProvider(new Web3.providers.HttpProvider("http://localhost:8585"));
-	</script>
 </head>
 
 <body>
@@ -238,7 +232,10 @@
     <div data-role="content">
         <form action="#" method="post" id="alter_normal_form">
             <label>
-                用户名： <input type="text" name="name">
+                Phone: <input type="number" maxlength="11" name="phone">
+            </label>
+            <label>
+                Name: <input type="text" name="name">
             </label>
             <label>
                 Email： <input type="email" name="email">
@@ -258,9 +255,9 @@
     <div data-role="content">
         <form action="#" method="post" id="alter_phone_form">
             <label>
-                手机号： <input type="number" maxlength="11" name="phone">
+                Phone: <input type="number" maxlength="11" name="phone">
             </label>
-            <a href="" class="ui-btn send_auth_button">发送验证码(暂不可用)</a>
+                <a href="#" class="ui-btn send_auth_button">发送验证码(暂不可用)</a>
             <label>
                 验证码： <input id="alt_key" name="key">
             </label>
@@ -278,6 +275,9 @@
     </header>
     <div data-role="content">
         <form action="#" id="alter_psw_form">
+            <label>
+                Phone: <input type="number" maxlength="11" name="phone">
+            </label>
             <label>
                 新密码： <input type="password" name="psw">
             </label>
@@ -398,6 +398,7 @@
 
 
 </script>
+<script type="text/javascript" src="scripts/web3/dist/web3.js"></script>
 <!--布局相关Script-->
 <script src="scripts/layout.js"></script>
 <!--业务逻辑相关Script-->
@@ -407,8 +408,7 @@
 <!--地图相关Script-->
 <script src="scripts/map.js"></script>
 <!--调用geth相关Script-->
-<!--script src="scripts/geth.js"></script-->
-<!--仅供测试使用的Script-->
-<script src="scripts/test.js"></script>
+<script src="scripts/geth.js"></script>
+
 </body>
 </html>
