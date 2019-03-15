@@ -54,11 +54,12 @@ function mapInit() {
 }
 window.onload = loadMap;
 
-$("#terminal-select-button").click(setMapTerminal);
+$("#terminal-select-button").click(()=>{setMapTerminal()});
 
 function setMapTerminal() {
     let terminal = "101010";
     drone.terminal = terminal;
     $("#input-terminal").val(terminal);
     mainListLocationBind(drone.start, drone.terminal);
+    window.location.href="#config-page"
 }
